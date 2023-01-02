@@ -31,9 +31,6 @@ Resources:
       Handler: dist/index.handler
       Runtime: nodejs16.x
       Timeout: 60
-      Policies:
-      # Give the Lambda service access to poll your DynamoDB Stream
-      - AmazonDynamoDBFullAccess
       Environment:
         Variables:
           NODE_ENV: production
@@ -63,6 +60,9 @@ Resources:
           Principal:
             Service: [lambda.amazonaws.com]
           Action: sts:AssumeRole
+        - Effect: Allow
+          Action: dynamodb:*
+          Resource: '*'
       Path: /
       ManagedPolicyArns:
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
