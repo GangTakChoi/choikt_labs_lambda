@@ -31,6 +31,9 @@ Resources:
       Handler: dist/index.handler
       Runtime: nodejs16.x
       Timeout: 60
+      Policies:
+      # Give the Lambda service access to poll your DynamoDB Stream
+      - AmazonDynamoDBFullAccess
       Environment:
         Variables:
           NODE_ENV: production
