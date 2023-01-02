@@ -28,8 +28,9 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-HelloWorld'
-      Handler: index.handler
+      Handler: dist/index.handler
       Runtime: nodejs16.x
+      Timeout: 60
       Environment:
         Variables:
           NODE_ENV: production
@@ -38,16 +39,16 @@ Resources:
         - LambdaExecutionRole
         - Arn
       Events:
-        GetEvent:
+        IndexAnyEvent:
           Type: Api
           Properties:
-            Path: /
-            Method: get
-        PostEvent:
+            Path: '/'
+            Method: any
+        AnyEvent:
           Type: Api
           Properties:
-            Path: /
-            Method: post
+            Path: '/{proxy+}'
+            Method: any
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role

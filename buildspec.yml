@@ -8,6 +8,8 @@ phases:
       # Install dependencies needed for running tests
       - npm install
 
+      - npm run build
+
       # Upgrade AWS CLI to the latest version
       - pip install --upgrade awscli
   pre_build:
